@@ -26,7 +26,7 @@ public class UserController {
     private UserService userService;
 
 
-
+    //登录用户
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public String login(Model model, HttpSession session, String username, String password){
         User u = new User();
@@ -45,6 +45,7 @@ public class UserController {
         return "login";
     }
 
+    //跳转登录页面
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String toLogin() {
         return "login";
@@ -70,6 +71,7 @@ public class UserController {
         return "allUser";
     }
 
+    //用户列表
     @RequestMapping(value = "user/search", method = RequestMethod.POST)
     public String search(Model model,User User){
         List<User> list = userService.queryUserByName(User);
@@ -78,23 +80,27 @@ public class UserController {
         return "allUser";
     }
 
+    //添加用户页面
     @RequestMapping("user/toAddUser")
     public String toAddUser() {
         return "addUser";
     }
 
+    //添加用户
     @RequestMapping("user/addUser")
     public String addUser(User User) {
         userService.addUser(User);
         return "redirect:/user/allUser";
     }
 
+    //删除用户
     @RequestMapping("user/del/{UserId}")
     public String deleteUser(@PathVariable("UserId") int id) {
         userService.deleteUserById(id);
         return "redirect:/user/allUser";
     }
 
+    //修改页面
     @RequestMapping("user/toUpdateUser")
     public String toUpdateUser(Model model, int id) {
         User User = userService.queryById(id);
@@ -102,6 +108,7 @@ public class UserController {
         return "updateUser";
     }
 
+    //修改用户
     @RequestMapping("user/updateUser")
     public String updateUser(User User) {
         userService.updateUser(User);
